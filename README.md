@@ -24,23 +24,6 @@ The application will open at `http://localhost:3000`
 yarn build
 ```
 
-## 📁 Project Structure
-
-```
-crowd-import/
-├── src/
-│   ├── components/      # Reusable components
-│   ├── pages/          # Main pages
-│   ├── hooks/          # Custom hooks
-│   ├── services/       # API types and services
-│   ├── utils/          # Utilities
-│   ├── styles/         # Global styles
-│   ├── App.tsx         # Main component
-│   └── main.tsx        # Entry point
-├── public/             # Static files
-└── package.json
-```
-
 ## 🛠️ Technologies
 
 - React 19

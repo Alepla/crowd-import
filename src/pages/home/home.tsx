@@ -1,6 +1,5 @@
 import { useIntl } from 'react-intl';
-import { ProductCard } from '../../components/product-card';
-import { InterestModal } from '../../components/interest-modal';
+import { ProductCard, InterestModal } from '../../components';
 import { useHome } from './hooks/use-home';
 
 export const Home: React.FC = () => {
