@@ -1,9 +1,22 @@
 import { useState } from 'react';
 import { Product } from '../../../services/models';
-import { useProducts } from '../../../hooks';
+import { useProducts, useProductFilters } from '../../../hooks';
 
 export const useHome = () => {
   const { products, loading, addInterest } = useProducts();
+  const {
+    filters,
+    categories,
+    filteredProducts,
+    groupedProducts,
+    updateSearchQuery,
+    updateSortBy,
+    updateGroupBy,
+    updateCategoryFilter,
+    updateStatusFilter,
+    resetFilters
+  } = useProductFilters(products);
+
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -28,13 +41,22 @@ export const useHome = () => {
   };
 
   return {
-    products,
     loading,
     selectedProduct,
     isModalOpen,
+    filters,
+    categories,
+    filteredProducts,
+    groupedProducts,
     handleShowInterest,
     handleCloseModal,
-    handleSubmitInterest
+    handleSubmitInterest,
+    updateSearchQuery,
+    updateSortBy,
+    updateGroupBy,
+    updateCategoryFilter,
+    updateStatusFilter,
+    resetFilters
   };
 };
 

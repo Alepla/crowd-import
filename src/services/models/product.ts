@@ -8,6 +8,7 @@ export interface Product {
   minimumParticipants: number;
   currentParticipants: number;
   status: 'pending' | 'active' | 'completed' | 'cancelled';
+  category: string;
   createdAt: string;
   updatedAt: string;
 }
