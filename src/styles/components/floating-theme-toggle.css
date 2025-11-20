@@ -1,0 +1,62 @@
+.floating-theme-toggle {
+  position: fixed;
+  top: 23px;
+  right: 32px;
+  z-index: 101;
+  animation: fadeIn 0.3s ease;
+  pointer-events: auto;
+}
+
+.floating-theme-toggle .theme-toggle {
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 48px;
+  height: 48px;
+}
+
+[data-theme='light'] .floating-theme-toggle .theme-toggle {
+  background: rgba(250, 250, 250, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.floating-theme-toggle .theme-toggle:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='light'] .floating-theme-toggle .theme-toggle:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .floating-theme-toggle {
+    top: 20px;
+    right: 24px;
+  }
+
+  .floating-theme-toggle .theme-toggle {
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+  }
+}
+
