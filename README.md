@@ -1,4 +1,4 @@
-# CrowdImport - Crowdfunding Import Platform
+# Nufold - Crowdfunding Import Platform
 
 Crowdfunding platform for importing products from China. Users can show interest in products and when a minimum number of participants is reached (e.g., 10 people), the import proceeds by sharing shipping costs.
 
