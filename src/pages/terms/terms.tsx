@@ -1,5 +1,7 @@
 import { useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
+import { ROUTES } from '../../constants';
+import { formatLongDate } from '../../utils';
 
 export const Terms: React.FC = () => {
   const { formatMessage } = useIntl();
@@ -34,11 +36,11 @@ export const Terms: React.FC = () => {
   };
 
   return (
-    <div className="legal-page">
+    <div className="legal-page page-gradient">
       <div className="legal-page__container">
         <div className="legal-page__header">
           <h1 className="legal-page__title">{intl.title}</h1>
-          <p className="legal-page__date">{intl.lastUpdated}: {new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+          <p className="legal-page__date">{intl.lastUpdated}: {formatLongDate(new Date())}</p>
         </div>
 
         <div className="legal-page__content">
@@ -109,7 +111,7 @@ export const Terms: React.FC = () => {
         </div>
 
         <div className="legal-page__footer">
-          <Link to="/" className="legal-page__back-link">{intl.backHome}</Link>
+          <Link to={ROUTES.LANDING} className="legal-page__back-link">{intl.backHome}</Link>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useIntl } from 'react-intl';
+import { ROUTES } from '../../constants';
 
 export const NotFound: React.FC = () => {
   const { formatMessage } = useIntl();
@@ -15,7 +16,7 @@ export const NotFound: React.FC = () => {
       <div className="not-found__container">
         <h1 className="not-found__title">{intl.title}</h1>
         <p className="not-found__message">{intl.message}</p>
-        <Link to="/" className="not-found__link">
+        <Link to={ROUTES.LANDING} className="not-found__link">
           {intl.backHome}
         </Link>
       </div>
