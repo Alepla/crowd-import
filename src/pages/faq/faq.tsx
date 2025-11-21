@@ -1,6 +1,9 @@
 import { useIntl } from 'react-intl';
+import classNames from 'classnames';
+import { Layout, Button } from '../../components';
 import { faqItemsData } from './faq-data';
 import { useFAQ } from './hooks/use-faq';
+import { renderChevronDownIcon } from '../../resources/icons';
 
 export const FAQ: React.FC = () => {
   const { formatMessage } = useIntl();
@@ -17,39 +20,32 @@ export const FAQ: React.FC = () => {
   };
 
   return (
-    <div className="faq-page page-gradient">
-      <div className="faq-page__container">
-        <div className="faq-page__header">
-          <h1 className="faq-page__title">{intl.title}</h1>
-          <p className="faq-page__subtitle">{intl.subtitle}</p>
-        </div>
-
-        <div className="faq-page__list">
+    <Layout
+      className="faq-page"
+      title={intl.title}
+      subtitle={intl.subtitle}
+    >
+      <div className="faq-page__list">
           {intl.faqItems.map(item => {
             const isOpen = isItemOpen(item.id);
+            const itemClassName = classNames('faq-page__item', {
+              'faq-page__item--open': isOpen
+            });
+            const iconClassName = classNames('faq-page__icon', {
+              'faq-page__icon--open': isOpen
+            });
             return (
-              <div key={item.id} className={`faq-page__item ${isOpen ? 'faq-page__item--open' : ''}`}>
-                <button
+              <div key={item.id} className={itemClassName}>
+                <Button
                   className="faq-page__question"
                   onClick={() => toggleItem(item.id)}
-                  aria-expanded={isOpen}
+                  ariaExpanded={isOpen}
                 >
                   <span className="faq-page__question-text">{item.question}</span>
-                  <svg
-                    className={`faq-page__icon ${isOpen ? 'faq-page__icon--open' : ''}`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
-                </button>
+                  <span className={iconClassName}>
+                    {renderChevronDownIcon()}
+                  </span>
+                </Button>
                 {isOpen && (
                   <div className="faq-page__answer">
                     <p>{item.answer}</p>
@@ -59,8 +55,7 @@ export const FAQ: React.FC = () => {
             );
           })}
         </div>
-      </div>
-    </div>
+    </Layout>
   );
 };
 

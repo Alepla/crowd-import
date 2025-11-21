@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Layout, Button, BUTTON_TYPE, FormField } from '../../components';
 import { ROUTES } from '../../constants';
 import { useLogin } from './hooks/use-login';
 
@@ -21,52 +22,47 @@ export const Login: React.FC = () => {
   } = useLogin();
 
   return (
-    <div className="login-page page-gradient">
-      <div className="login-page__container">
-        <div className="login-page__card">
-          <div className="login-page__header">
-            <h1 className="login-page__title">{intl.title}</h1>
-            <p className="login-page__subtitle">{intl.subtitle}</p>
-          </div>
-
+    <Layout
+      className="login-page"
+      title={intl.title}
+      subtitle={intl.subtitle}
+    >
+      <div className="login-page__card">
           <form onSubmit={handleSubmit} className="login-page__form">
             {!isLogin && (
-              <div className="login-page__field">
-                <label className="login-page__label">{intl.name}</label>
-                <input
-                  type="text"
-                  className="login-page__input"
-                  placeholder={intl.namePlaceholder}
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  disabled={loading}
-                />
-              </div>
+              <FormField
+                id="name"
+                label={intl.name}
+                type="text"
+                value={name}
+                onChange={setName}
+                placeholder={intl.namePlaceholder}
+                disabled={loading}
+                classNamePrefix="login-page"
+              />
             )}
 
-            <div className="login-page__field">
-              <label className="login-page__label">{intl.email}</label>
-              <input
-                type="email"
-                className="login-page__input"
-                placeholder={intl.emailPlaceholder}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={loading}
-              />
-            </div>
+            <FormField
+              id="email"
+              label={intl.email}
+              type="email"
+              value={email}
+              onChange={setEmail}
+              placeholder={intl.emailPlaceholder}
+              disabled={loading}
+              classNamePrefix="login-page"
+            />
 
-            <div className="login-page__field">
-              <label className="login-page__label">{intl.password}</label>
-              <input
-                type="password"
-                className="login-page__input"
-                placeholder={intl.passwordPlaceholder}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={loading}
-              />
-            </div>
+            <FormField
+              id="password"
+              label={intl.password}
+              type="password"
+              value={password}
+              onChange={setPassword}
+              placeholder={intl.passwordPlaceholder}
+              disabled={loading}
+              classNamePrefix="login-page"
+            />
 
             {error && (
               <div className="login-page__error">
@@ -74,30 +70,29 @@ export const Login: React.FC = () => {
               </div>
             )}
 
-            <button
-              type="submit"
+            <Button
+              type={BUTTON_TYPE.SUBMIT}
               className="login-page__submit"
               disabled={loading}
             >
               {submitButtonText}
-            </button>
+            </Button>
           </form>
 
           <div className="login-page__footer">
-            <button
-              type="button"
+            <Button
+              type={BUTTON_TYPE.BUTTON}
               onClick={toggleMode}
               className="login-page__switch"
             >
               {switchButtonText}
-            </button>
+            </Button>
             <Link to={ROUTES.LANDING} className="login-page__back-link">
               {intl.backHome}
             </Link>
           </div>
         </div>
-      </div>
-    </div>
+    </Layout>
   );
 };
 
