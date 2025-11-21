@@ -1,5 +1,6 @@
 import { useIntl } from 'react-intl';
-import { ProductCard, InterestModal, ProductFilters, Loader } from '../../components';
+import { InterestModal, Loader, Layout } from '../../components';
+import { ProductCard, ProductFilters } from './components';
 import { useProductsPage } from './hooks/use-products-page';
 import { PRODUCT_STATUS } from '../../services/models';
 import { GROUP_BY_OPTIONS } from '../../hooks';
@@ -36,6 +37,7 @@ export const Products: React.FC = () => {
     }
     return groupKey;
   };
+  
   const {
     loading,
     selectedProduct,
@@ -60,7 +62,9 @@ export const Products: React.FC = () => {
   }
 
   const renderProducts = (productsToRender: typeof filteredProducts) => {
-    if (productsToRender.length === 0) {
+    const isEmpty = productsToRender.length === 0;
+
+    if (isEmpty) {
       return (
         <div className="empty-state">
           <p>{intl.empty}</p>
@@ -84,16 +88,12 @@ export const Products: React.FC = () => {
   const isGrouped = filters.groupBy !== GROUP_BY_OPTIONS.NONE;
 
   return (
-    <div className="products page-gradient">
-      <div className="products__container">
-        <div className="products__header">
-          <h1 className="products__title">{intl.title}</h1>
-          <p className="products__subtitle">
-            {intl.subtitle}
-          </p>
-        </div>
-
-        <ProductFilters
+    <Layout
+      className="products"
+      title={intl.title}
+      subtitle={intl.subtitle}
+    >
+      <ProductFilters
           searchQuery={filters.searchQuery}
           sortBy={filters.sortBy}
           groupBy={filters.groupBy}
@@ -132,8 +132,7 @@ export const Products: React.FC = () => {
             onSubmit={handleSubmitInterest}
           />
         )}
-      </div>
-    </div>
+    </Layout>
   );
 };
 
