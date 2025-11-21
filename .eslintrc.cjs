@@ -7,8 +7,24 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'prettier',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: [
+    'dist',
+    'dist-ssr',
+    'node_modules',
+    '.eslintrc.cjs',
+    'vite.config.js',
+    'vite.config.d.ts',
+    '*.tsbuildinfo',
+    'build',
+    '.husky',
+    '.eslintcache',
+  ],
   parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: false,
+  },
   plugins: ['react-refresh'],
   rules: {
     'react-refresh/only-export-components': [
