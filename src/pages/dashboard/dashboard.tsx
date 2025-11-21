@@ -1,6 +1,7 @@
 import { useIntl } from 'react-intl';
-import { Loader } from '../../components';
+import { Loader, Layout, Button } from '../../components';
 import { useDashboard } from './hooks/use-dashboard';
+import { StatCard, TableProduct, ProgressBar, StatusBadge, STATUS_BADGE_VARIANT } from './components';
 
 export const Dashboard: React.FC = () => {
   const { formatMessage, formatNumber } = useIntl();
@@ -40,23 +41,23 @@ export const Dashboard: React.FC = () => {
   const hasActiveProducts = activeProducts.length > 0;
 
   return (
-    <div className="dashboard page-gradient">
-      <div className="dashboard__container">
-        <h1 className="dashboard__title">{intl.title}</h1>
-
-        <div className="dashboard__stats">
-          <div className="stat-card">
-            <div className="stat-card__value">{stats.readyCount}</div>
-            <div className="stat-card__label">{intl.readyToImport}</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-card__value">{stats.activeCount}</div>
-            <div className="stat-card__label">{intl.inProcess}</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-card__value">{stats.totalParticipants}</div>
-            <div className="stat-card__label">{intl.totalParticipants}</div>
-          </div>
+    <Layout
+      className="dashboard"
+      title={intl.title}
+    >
+      <div className="dashboard__stats">
+          <StatCard
+            value={stats.readyCount}
+            label={intl.readyToImport}
+          />
+          <StatCard
+            value={stats.activeCount}
+            label={intl.inProcess}
+          />
+          <StatCard
+            value={stats.totalParticipants}
+            label={intl.totalParticipants}
+          />
         </div>
 
         {hasReadyProducts && (
@@ -76,17 +77,17 @@ export const Dashboard: React.FC = () => {
                   {readyProducts.map(product => (
                     <tr key={product.id}>
                       <td>
-                        <div className="table-product">
-                          <img src={product.imageUrl} alt={product.name} />
-                          <span>{product.name}</span>
-                        </div>
+                        <TableProduct
+                          imageUrl={product.imageUrl}
+                          name={product.name}
+                        />
                       </td>
                       <td>{product.currentParticipants}</td>
                       <td>
                         ${formatNumber(product.shippingPerPerson, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} {intl.usd}
                       </td>
                       <td>
-                        <button className="button-action">{intl.proceedWithImport}</button>
+                        <Button className="button-action">{intl.proceedWithImport}</Button>
                       </td>
                     </tr>
                   ))}
@@ -117,27 +118,24 @@ export const Dashboard: React.FC = () => {
                     return (
                       <tr key={product.id}>
                         <td>
-                          <div className="table-product">
-                            <img src={product.imageUrl} alt={product.name} />
-                            <span>{product.name}</span>
-                          </div>
+                          <TableProduct
+                            imageUrl={product.imageUrl}
+                            name={product.name}
+                          />
                         </td>
                         <td>
-                          <div className="progress-bar">
-                            <div 
-                              className="progress-bar__fill"
-                              style={{ width: `${progress}%` }}
-                            />
-                            <span className="progress-bar__text">
-                              {product.currentParticipants}/{product.minimumParticipants}
-                            </span>
-                          </div>
+                          <ProgressBar
+                            current={product.currentParticipants}
+                            minimum={product.minimumParticipants}
+                            progress={progress}
+                          />
                         </td>
                         <td>{product.currentParticipants}</td>
                         <td>
-                          <span className="status-badge status-badge--active">
-                            {intl.inProcessStatus}
-                          </span>
+                          <StatusBadge
+                            label={intl.inProcessStatus}
+                            variant={STATUS_BADGE_VARIANT.ACTIVE}
+                          />
                         </td>
                       </tr>
                     );
@@ -147,7 +145,6 @@ export const Dashboard: React.FC = () => {
             </div>
           )}
         </section>
-      </div>
-    </div>
+    </Layout>
   );
 };
