@@ -1,6 +1,7 @@
 import { Component, ReactNode } from 'react';
 import { IntlProvider } from 'react-intl';
 import esMessages from '../../locales/es.json';
+import { Button } from '../button';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -34,12 +35,12 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error }) => {
             <pre className="error-boundary__error">{error.toString()}</pre>
           </details>
         )}
-        <button
+        <Button
           className="error-boundary__button"
           onClick={() => window.location.reload()}
         >
           {intl.reload}
-        </button>
+        </Button>
       </div>
     </div>
   );
