@@ -11,4 +11,3 @@ export const ROUTES = {
   TERMS: '/terms',
   LOGIN: '/login'
 } as const;
-

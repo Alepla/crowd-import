@@ -7,4 +7,3 @@ export const ICONS = {
   MONEY: '💰',
   SHIP: '🚢',
 } as const;
-
