@@ -223,6 +223,7 @@
   "contact.address": "Calle Principal 123, 28001 Madrid, España",
   "notifications.title": "Notificaciones",
   "notifications.subtitle": "Mantente al día con tus importaciones y productos",
+  "notifications.loading": "Cargando notificaciones...",
   "notifications.filterAll": "Todas",
   "notifications.filterUnread": "No leídas",
   "notifications.filterRead": "Leídas",
@@ -257,10 +258,12 @@
   "faq.a8": "Puedes sugerir productos a través de nuestro formulario de contacto o directamente desde la página de productos. Revisamos todas las sugerencias y añadimos los productos más solicitados a nuestro catálogo.",
   "wishlist.title": "Lista de Deseos",
   "wishlist.subtitle": "Productos que te interesan y quieres seguir",
+  "wishlist.loading": "Cargando lista de deseos...",
   "wishlist.empty": "Tu lista de deseos está vacía",
   "wishlist.emptyDescription": "Añade productos a tu lista de deseos haciendo clic en el corazón cuando veas algo que te guste.",
   "myOrders.title": "Mis Pedidos",
   "myOrders.subtitle": "Gestiona y sigue el estado de tus importaciones",
+  "myOrders.loading": "Cargando pedidos...",
   "myOrders.empty": "No tienes pedidos aún",
   "myOrders.emptyDescription": "Cuando realices un pedido, aparecerá aquí con toda la información y el estado de seguimiento.",
   "myOrders.loginRequired": "Inicia sesión para ver tus pedidos",
@@ -277,5 +280,7 @@
   "myOrders.statusShipping": "En tránsito",
   "myOrders.statusDelivered": "Entregado",
   "myOrders.statusCancelled": "Cancelado",
-  "emptyPage.viewProducts": "Ver productos"
+  "emptyPage.viewProducts": "Ver productos",
+  "scrollToTop.label": "Volver arriba",
+  "sidebar.closeMenu": "Cerrar menú"
 }
