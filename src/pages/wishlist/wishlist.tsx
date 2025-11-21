@@ -1,7 +1,8 @@
 import { useIntl } from 'react-intl';
-import { ProductCard } from '../../components';
+import { ProductCard, EmptyPage } from '../../components';
 import { Product } from '../../services/models/product';
 import { mockProducts } from '../../utils/mock-data';
+import { ICONS } from '../../constants';
 
 export const Wishlist: React.FC = () => {
   const { formatMessage } = useIntl();
@@ -16,7 +17,7 @@ export const Wishlist: React.FC = () => {
   };
 
   return (
-    <div className="wishlist-page">
+    <div className="wishlist-page page-gradient">
       <div className="wishlist-page__container">
         <div className="wishlist-page__header">
           <h1 className="wishlist-page__title">{intl.title}</h1>
@@ -24,11 +25,11 @@ export const Wishlist: React.FC = () => {
         </div>
 
         {wishlistItems.length === 0 ? (
-          <div className="wishlist-page__empty">
-            <div className="wishlist-page__empty-icon">❤️</div>
-            <h2 className="wishlist-page__empty-title">{intl.empty}</h2>
-            <p className="wishlist-page__empty-description">{intl.emptyDescription}</p>
-          </div>
+          <EmptyPage
+            icon={ICONS.HEART}
+            title={intl.empty}
+            description={intl.emptyDescription}
+          />
         ) : (
           <div className="wishlist-page__grid">
             {wishlistItems.map(product => (
