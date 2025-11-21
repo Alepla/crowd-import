@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
-import { FORM_STATUS, FormStatus } from '../../../constants';
+import { FORM_STATUS, FormStatus } from '../types';
 
 interface ContactFormData {
   name: string;
@@ -81,6 +81,14 @@ export const useContact = () => {
   const isError = submitStatus === FORM_STATUS.ERROR;
   const submitButtonText = isSubmitting ? intl.sending : intl.sendButton;
 
+  const subjectOptions = [
+    { value: '', label: intl.subjectPlaceholder },
+    { value: 'general', label: intl.subjectGeneral },
+    { value: 'product', label: intl.subjectProduct },
+    { value: 'support', label: intl.subjectSupport },
+    { value: 'partnership', label: intl.subjectPartnership }
+  ];
+
   return {
     formData,
     isSubmitting,
@@ -90,7 +98,8 @@ export const useContact = () => {
     handleSubmit,
     isSuccess,
     isError,
-    submitButtonText
+    submitButtonText,
+    subjectOptions
   };
 };
 
