@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useIntl } from 'react-intl';
+import { IconButton } from '../icon-button';
+import { renderScrollToTopIcon } from '../../resources/icons';
 
 export const ScrollToTopButton: React.FC = () => {
+  const { formatMessage } = useIntl();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -26,31 +30,22 @@ export const ScrollToTopButton: React.FC = () => {
     });
   };
 
+  const intl = {
+    label: formatMessage({ id: 'scrollToTop.label' })
+  };
+
   if (!isVisible) {
     return null;
   }
 
   return (
-    <button
-      className="scroll-to-top-button"
+    <IconButton
+      icon={renderScrollToTopIcon()}
       onClick={scrollToTop}
-      aria-label="Volver arriba"
-      title="Volver arriba"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M18 15l-6-6-6 6"></path>
-      </svg>
-    </button>
+      className="scroll-to-top-button"
+      ariaLabel={intl.label}
+      title={intl.label}
+    />
   );
 };
 

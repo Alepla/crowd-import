@@ -1,7 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { useAuthStore } from '../../stores/auth-store';
 import { ROUTES } from '../../constants';
+import { IconButton, ICON_BUTTON_TYPE } from '../icon-button';
+import { renderDashboardIcon, renderLogoutIcon, renderLoginIcon, renderLogoIcon } from '../../resources/icons';
 
 export const Header: React.FC = () => {
   const { formatMessage } = useIntl();
@@ -18,106 +20,56 @@ export const Header: React.FC = () => {
     logout: formatMessage({ id: 'header.logout' })
   };
 
+  const renderAuthButton = () => {
+    if (isAuthenticated) {
+      return (
+        <IconButton
+          icon={renderLogoutIcon()}
+          onClick={logout}
+          className="header__cta-button"
+          ariaLabel={intl.logout}
+          title={intl.logout}
+        />
+      );
+    }
+
+    return (
+      <IconButton
+        icon={renderLoginIcon()}
+        to={ROUTES.LOGIN}
+        className="header__cta-button"
+        ariaLabel={intl.login}
+        title={intl.login}
+        type={ICON_BUTTON_TYPE.LINK}
+      />
+    );
+  };
+
   return (
     <header className="header">
       <div className="header__container">
-        <Link to={ROUTES.LANDING} className="header__logo">
-          <div className="header__logo-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M3 12h18M3 12l4-4M3 12l4 4M21 12l-4-4M21 12l-4 4"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <circle
-                cx="12"
-                cy="12"
-                r="8"
-                stroke="currentColor"
-                strokeWidth="2"
-                fill="none"
-                opacity="0.5"
-              />
-              <circle
-                cx="12"
-                cy="12"
-                r="3"
-                fill="currentColor"
-              />
-            </svg>
-          </div>
+        <IconButton
+          icon={
+            <div className="header__logo-icon">
+              {renderLogoIcon()}
+            </div>
+          }
+          to={ROUTES.LANDING}
+          type={ICON_BUTTON_TYPE.LINK}
+          className="header__logo"
+        >
           <h1>{intl.title}</h1>
-        </Link>
+        </IconButton>
         
         <nav className="header__nav">
-          <button
+          <IconButton
+            icon={renderDashboardIcon()}
             onClick={() => navigate(ROUTES.DASHBOARD)}
             className="header__icon-button"
-            aria-label={intl.dashboard}
+            ariaLabel={intl.dashboard}
             title={intl.dashboard}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <rect x="3" y="3" width="7" height="7"></rect>
-              <rect x="14" y="3" width="7" height="7"></rect>
-              <rect x="14" y="14" width="7" height="7"></rect>
-              <rect x="3" y="14" width="7" height="7"></rect>
-            </svg>
-          </button>
-          {isAuthenticated ? (
-            <button onClick={logout} className="header__cta-button" aria-label={intl.logout} title={intl.logout}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                <polyline points="16 17 21 12 16 7"></polyline>
-                <line x1="21" y1="12" x2="9" y2="12"></line>
-              </svg>
-            </button>
-          ) : (
-            <Link to={ROUTES.LOGIN} className="header__cta-button" aria-label={intl.login} title={intl.login}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-                <polyline points="10 17 15 12 10 7"></polyline>
-                <line x1="15" y1="12" x2="3" y2="12"></line>
-              </svg>
-            </Link>
-          )}
+          />
+          {renderAuthButton()}
         </nav>
       </div>
     </header>

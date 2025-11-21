@@ -1,7 +1,10 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useIntl } from 'react-intl';
+import classNames from 'classnames';
 import { ROUTES } from '../../constants';
+import { IconButton, ICON_BUTTON_TYPE } from '../icon-button';
+import { renderHomeIcon, renderProductsIcon, renderWishlistIcon, renderMyOrdersIcon, renderNotificationsIcon, renderContactIcon, renderMenuIcon, renderCloseIcon } from '../../resources/icons';
 
 export const Sidebar: React.FC = () => {
   const { formatMessage } = useIntl();
@@ -15,200 +18,109 @@ export const Sidebar: React.FC = () => {
     notifications: formatMessage({ id: 'header.notifications' }),
     wishlist: formatMessage({ id: 'header.wishlist' }),
     myOrders: formatMessage({ id: 'header.myOrders' }),
-    menu: formatMessage({ id: 'sidebar.menu' })
+    menu: formatMessage({ id: 'sidebar.menu' }),
+    closeMenu: formatMessage({ id: 'sidebar.closeMenu' })
   };
 
   const isActive = (path: string) => location.pathname === path;
 
+  const getLinkClassName = (path: string) => classNames('sidebar__link', {
+    'sidebar__link--active': isActive(path)
+  });
+
+  const sidebarClassName = classNames('sidebar', {
+    'sidebar--open': isOpen
+  });
+
   return (
     <>
-      <button
-        className="sidebar__toggle"
+      <IconButton
+        icon={renderMenuIcon()}
         onClick={() => setIsOpen(!isOpen)}
-        aria-label={intl.menu}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-      </button>
+        className="sidebar__toggle"
+        ariaLabel={intl.menu}
+        title={intl.menu}
+      />
 
       {isOpen && (
         <div className="sidebar__overlay" onClick={() => setIsOpen(false)} />
       )}
 
-      <aside className={`sidebar ${isOpen ? 'sidebar--open' : ''}`}>
+      <aside className={sidebarClassName}>
         <div className="sidebar__header">
           <h2 className="sidebar__title">{intl.menu}</h2>
-          <button
-            className="sidebar__close"
+          <IconButton
+            icon={renderCloseIcon()}
             onClick={() => setIsOpen(false)}
-            aria-label="Cerrar menú"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
+            className="sidebar__close"
+            ariaLabel={intl.closeMenu}
+            title={intl.closeMenu}
+          />
         </div>
 
         <nav className="sidebar__nav">
-          <Link
+          <IconButton
+            icon={renderHomeIcon()}
             to={ROUTES.LANDING}
-            className={`sidebar__link ${isActive(ROUTES.LANDING) ? 'sidebar__link--active' : ''}`}
+            type={ICON_BUTTON_TYPE.LINK}
+            className={getLinkClassName(ROUTES.LANDING)}
             onClick={() => setIsOpen(false)}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-              <polyline points="9 22 9 12 15 12 15 22"></polyline>
-            </svg>
             {intl.landing}
-          </Link>
+          </IconButton>
 
-          <Link
+          <IconButton
+            icon={renderProductsIcon()}
             to={ROUTES.PRODUCTS}
-            className={`sidebar__link ${isActive(ROUTES.PRODUCTS) ? 'sidebar__link--active' : ''}`}
+            type={ICON_BUTTON_TYPE.LINK}
+            className={getLinkClassName(ROUTES.PRODUCTS)}
             onClick={() => setIsOpen(false)}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-              <line x1="12" y1="22.08" x2="12" y2="12"></line>
-            </svg>
             {intl.products}
-          </Link>
+          </IconButton>
 
-          <Link
+          <IconButton
+            icon={renderWishlistIcon()}
             to={ROUTES.WISHLIST}
-            className={`sidebar__link ${isActive(ROUTES.WISHLIST) ? 'sidebar__link--active' : ''}`}
+            type={ICON_BUTTON_TYPE.LINK}
+            className={getLinkClassName(ROUTES.WISHLIST)}
             onClick={() => setIsOpen(false)}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-            </svg>
             {intl.wishlist}
-          </Link>
+          </IconButton>
 
-          <Link
+          <IconButton
+            icon={renderMyOrdersIcon()}
             to={ROUTES.MY_ORDERS}
-            className={`sidebar__link ${isActive(ROUTES.MY_ORDERS) ? 'sidebar__link--active' : ''}`}
+            type={ICON_BUTTON_TYPE.LINK}
+            className={getLinkClassName(ROUTES.MY_ORDERS)}
             onClick={() => setIsOpen(false)}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <path d="M16 10a4 4 0 0 1-8 0"></path>
-            </svg>
             {intl.myOrders}
-          </Link>
+          </IconButton>
 
-          <Link
+          <IconButton
+            icon={renderNotificationsIcon()}
             to={ROUTES.NOTIFICATIONS}
-            className={`sidebar__link ${isActive(ROUTES.NOTIFICATIONS) ? 'sidebar__link--active' : ''}`}
+            type={ICON_BUTTON_TYPE.LINK}
+            className={getLinkClassName(ROUTES.NOTIFICATIONS)}
             onClick={() => setIsOpen(false)}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-            </svg>
             {intl.notifications}
-          </Link>
+          </IconButton>
         </nav>
 
         <div className="sidebar__footer">
           <div className="sidebar__separator"></div>
-          <Link
+          <IconButton
+            icon={renderContactIcon()}
             to={ROUTES.CONTACT}
-            className={`sidebar__link ${isActive(ROUTES.CONTACT) ? 'sidebar__link--active' : ''}`}
+            type={ICON_BUTTON_TYPE.LINK}
+            className={getLinkClassName(ROUTES.CONTACT)}
             onClick={() => setIsOpen(false)}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
             {intl.contact}
-          </Link>
+          </IconButton>
         </div>
       </aside>
     </>
