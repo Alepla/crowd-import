@@ -1,5 +1,6 @@
+import { BrowserRouter as Router } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
-import { ErrorBoundary, AppRouter } from './components';
+import { ErrorBoundary, AppLayout, AppRoutes } from './components';
 import { useThemeSync } from './hooks';
 import esMessages from './locales/es.json';
 import './styles';
@@ -10,7 +11,11 @@ const App: React.FC = () => {
   return (
     <IntlProvider locale="es" messages={esMessages}>
       <ErrorBoundary>
-        <AppRouter />
+        <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <AppLayout>
+            <AppRoutes />
+          </AppLayout>
+        </Router>
       </ErrorBoundary>
     </IntlProvider>
   );
