@@ -21,7 +21,6 @@ export default defineConfig({
       'lodash',
       'axios',
     ],
-    exclude: [],
   },
   build: {
     minify: 'esbuild',
