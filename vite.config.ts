@@ -1,30 +1,41 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
     open: true,
-    warmup: {
-      clientFiles: ['./src/main.tsx', './src/App.tsx'],
+    hmr: {
+      overlay: true,
     },
+    preTransformRequests: false,
   },
   optimizeDeps: {
     include: [
       'react',
       'react-dom',
+      'react-dom/client',
       'react-router-dom',
       'react-intl',
       'zustand',
-      'lodash',
+      'lodash/isEqual',
       'axios',
+      'classnames',
     ],
+    exclude: [],
+    esbuildOptions: {
+      target: 'es2020',
+      supported: {
+        'top-level-await': true,
+      },
+    },
+    holdUntilCrawlEnd: false,
   },
   build: {
     minify: 'esbuild',
     target: 'es2020',
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -34,7 +45,15 @@ export default defineConfig({
         },
       },
     },
-    chunkSizeWarningLimit: 1000,
+  },
+  esbuild: {
+    target: 'es2020',
+    minifyIdentifiers: false,
+    minifySyntax: false,
+    minifyWhitespace: false,
+  },
+  resolve: {
+    dedupe: ['react', 'react-dom'],
   },
 })
 
