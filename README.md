@@ -30,3 +30,4 @@ yarn build
 - TypeScript
 - Vite
 - React Router DOM
+- Zustand
